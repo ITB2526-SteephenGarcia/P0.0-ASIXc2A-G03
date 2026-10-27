@@ -233,8 +233,6 @@ Demostramos que:
 📷 Añadir captura mostrando varios registros.
 
 # **8. Arquitectura demostrada en este MVP**
-<img width="1672" height="941" alt="imatge" src="https://github.com/user-attachments/assets/1f531934-74cc-4ed7-8d3b-fc3c5d5daa25" />
-
 
 Actualmente W-NCC y B-NCC todavía no están integrados entre sí.
 
