@@ -39,3 +39,4 @@ El objetivo es que cualquier usuario autorizado pueda abrir el navegador, entrar
 Orden recomendado de lectura: **Requisitos → Manual de uso → Mantenimiento → Problemas frecuentes**.
 
 > ℹ️ Esta documentación es solo para usuarios. La configuración interna de los servidores está en la documentación de administrador.
+
