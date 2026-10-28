@@ -219,7 +219,8 @@ Esta modificación todavía no se ha implementado y se documentará cuando se re
 
 ## Diagrama de arquitectura
 
-> 📷 Añadir aquí el diagrama de arquitectura general del proyecto.
+<img width="650" height="680" alt="imatge" src="https://github.com/user-attachments/assets/f6c76da3-18e2-4bcc-b861-5855b7cffc44" />
+
 
 El diagrama debe mostrar como mínimo:
 
