@@ -231,12 +231,10 @@ Demostramos que:
 📷 Añadir captura del SELECT COUNT(*).
 
 📷 Añadir captura mostrando varios registros.
-https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AJGomAa%2BG%2FN3z1ge0JpmU9tvkKsTK%2BAhnWJRYObnxTNt%2BSLmAZ00U84liiKKdE0u0K9JlNp03qx9n5gk73nz54AZ1qYpeL9I4wisBGSkaLQD6CtkCpoDTkqTfR4YtTjbuohO7fKrG4zVhquXhA3wa4Wd9LzNwFtazpTmqMZLGeTAywvPja9OBWlQ2BQLa5WdHJYqsKq89ADPmCHnVcKj%2FwAEFqEvZGYkVIbEmt4Oa7LBsbD2w%2B%2Bf31vE7Z0hJDtRPpxORm8e0HqE%2FReozEKkislAc4twz38zglrOnz%2BimAy8XwEwUJfa66KgKoe0s1NIgjkR5ijxJInk209Q2UiAOz0q%2B6AMNdt34sxoWaznGU%2Ffrk%2FlXdHhxgh%2BluPhr4yXmGHkxYR5KKKZzh4p%2FPtzI%2BfiYSQZw%2B4040%2FyeGUshQ2KHV%2BxkAIlWaFLu%2Bd4Ir7joP0YSXi4dI3QxSUT7im%2FD6ugunlVjyA%2FBnoRoNyPdiVR9QddT%2FYYo5r9eVUlIrv1Pz9rx%2BtntK11s8tJn7uKH645OIZZmEjaXXodUPsC%2BIVTk%2FvhH73b1OYBKr1D%2BfbLMxvlt9KpZfnIDeqReRcHPZF0eEIi5kJZo1QDOAtIf0E9W7r9B%2BHP7B1QhI0hT3AD8tMWqMGAAgk%3D&allow_caching=true&sz=w960-h963&auditContext=forDisplay
+
 # **8. Arquitectura demostrada en este MVP**
 
 Actualmente W-NCC y B-NCC todavía no están integrados entre sí.
-
-La conexión:
 
 W-NCC → R-NCC → B-NCC → MySQL
 
