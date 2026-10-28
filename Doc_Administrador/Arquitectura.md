@@ -197,7 +197,7 @@ Después de revisar el primer MVP, se ha decidido mejorar la seguridad del servi
 La idea prevista para una siguiente fase es que `B-NCC` deje de estar accesible directamente desde la Intranet.
 
 La arquitectura prevista sería:
-<img width="1226" height="1283" alt="imatge" src="https://github.com/user-attachments/assets/33270da2-1b0a-4364-addb-ac8622c47d0a" />
+<img width="650" height="680" alt="imatge" src="https://github.com/user-attachments/assets/33270da2-1b0a-4364-addb-ac8622c47d0a" />
 
 
 
