@@ -9,6 +9,10 @@ La documentación de proceso permite ver cómo la infraestructura ha evolucionad
 - Taylor Uriña
 - Steephen Garcia
 
+## **Estudio previo**
+
+- [Estudio previo y justificación de tecnologías](./Estudio_Previo_Tecnologias.md)
+
 ## **Cronología**
 
 ### Sprint 1
