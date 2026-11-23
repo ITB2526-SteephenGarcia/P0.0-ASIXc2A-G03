@@ -13,6 +13,10 @@ La documentación de proceso permite ver cómo la infraestructura ha evolucionad
 
 - [Estudio previo y justificación de tecnologías](./Estudio_Previo_Tecnologias.md)
 
+## **Planificación consolidada**
+
+- [Planificación, recursos, responsables y riesgos](./Planificacion_Recursos_Riesgos.md)
+
 ## **Cronología**
 
 ### Sprint 1
