@@ -126,11 +126,9 @@ no corresponia correctament a la contrasenya configurada.
 
 Es va generar un hash bcrypt correcte.
 
-La contrasenya de l'usuari és:
+Per seguretat, la contrasenya real no es publica a la documentació.
 
-```text
-bchecker121
-```
+Es va generar un nou hash bcrypt corresponent a la contrasenya configurada per a l'usuari.
 
 ## Verificació
 
