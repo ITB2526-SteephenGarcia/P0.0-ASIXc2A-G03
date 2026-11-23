@@ -99,6 +99,7 @@ El servicio permite listar, descargar y subir archivos.
 
 ## Documentos
 
+- [Instalación y preparación del cliente](./Instalacion_Cliente.md)
 - [Requisitos de acceso](./Requisitos_Acceso.md)
 - [Manual de uso](./Manual_Uso.md)
 - [Manual FTP](./Manual_FTP.md)
