@@ -97,7 +97,7 @@ Aquesta decisió permet:
 | FTP | F-NCC | ✅ Funcionant |
 | SSH | Servidors | ✅ Funcionant |
 | Client Windows | Intranet | ✅ Validat |
-| Client Linux | Intranet | ✅ Desplegat |
+| Client Linux | Intranet | ⚠️ Desplegat, validació final pendent |
 
 ---
 
@@ -574,6 +574,10 @@ La documentació del projecte inclou o ha d'incloure:
 - estat de cada tasca;
 - cronologia real.
 
+### Document consolidat
+
+[Planificació, recursos, responsables i riscos](./Doc_Proceso_Proyecto/Planificacion_Recursos_Riesgos.md)
+
 ### Recursos
 
 - màquines virtuals;
@@ -730,7 +734,7 @@ La documentació del repositori s'està estructurant per poder demostrar els cri
 - [x] F-NCC
 - [x] FTP
 - [x] Client Windows
-- [x] Client Linux
+- [ ] Client Linux — desplegat, validació final pendent
 - [x] Aplicació web
 - [x] Login
 - [x] Rols
