@@ -1,34 +1,109 @@
-# Resolución de problemas
+# Problemas frecuentes
 
-Antes de avisar al administrador, prueba estas soluciones sencillas.
+Antes de avisar al administrador, se pueden realizar algunas comprobaciones sencillas.
 
-## Tabla de problemas frecuentes
+## 1. La web no carga
 
-| Problema | Posible causa | Solución |
-|----------|---------------|----------|
-| La página no carga | El equipo no tiene conexión de red | Comprobar la conexión y la red a la que está conectado el equipo |
-| La página no carga, pero la red va bien | Dirección mal escrita o servicio no disponible | Revisar la dirección; si es correcta, reintentar en unos minutos y avisar al administrador |
-| El navegador dice que no puede conectar con el servidor | Servidor web temporalmente no disponible | Esperar unos minutos, reintentar y avisar al administrador |
-| La web muestra un error | Fallo temporal del servicio | Recargar la página; si sigue, avisar al administrador |
-| La página carga pero no aparecen datos | Problema de conexión con la base de datos | Avisar al administrador |
-| Aparece una página sin datos *(ahora mismo es normal)* | La conexión web-base de datos aún está en desarrollo | Esperar a que la integración esté terminada |
-| El navegador muestra una versión antigua | Caché del navegador | Recargar con Ctrl + F5 |
-| La página tarda mucho | Red lenta o servicio sobrecargado | Esperar, recargar y avisar si se repite |
-| La web funcionaba y ya no | Mantenimiento o cambio en la infraestructura | Preguntar al administrador si hay tareas en curso |
-| La página se ve mal | Navegador desactualizado | Actualizar el navegador o probar con otro |
-| No tengo acceso | Equipo fuera de la red o sin autorización | Confirmar con el administrador que tienes permisos |
+Prueba:
 
-> 📷 Añadir aquí capturas de los errores más típicos (página no carga, error del servidor).
+```text
+http://192.168.10.10/
+```
 
-## Cuándo avisar al administrador
+Si tampoco funciona, comprueba que el equipo siga conectado a la red.
 
-- Has recargado y comprobado la red, y el problema sigue.
-- No aparecen datos cuando deberían.
-- Aparece un mensaje de error que no sabes interpretar.
+Si el problema continúa, contacta con el administrador.
 
-Envía: qué hacías, qué error salió (con captura), cuándo y desde qué equipo.
+## 2. La IP funciona pero el nombre no
 
-## Qué NO hacer
+Si funciona:
 
-- No intentar reiniciar servicios ni modificar la red.
-- No compartir direcciones o accesos con personas no autorizadas.
+```text
+http://192.168.10.10/
+```
+
+pero no funciona:
+
+```text
+http://w-ncc.asix3jyt.local/
+```
+
+probablemente existe un problema de resolución DNS.
+
+## 3. El login no funciona
+
+Comprueba:
+
+- nombre de usuario
+- contraseña
+- mayúsculas y minúsculas
+- espacios introducidos por error
+
+Si continúa fallando, contacta con el administrador.
+
+## 4. Aparece "Acceso denegado"
+
+Mensaje:
+
+```text
+Acceso denegado. Se requieren permisos de administrador.
+```
+
+Esto significa que la cuenta actual no dispone de permisos administrativos.
+
+Un lector no puede crear, editar ni eliminar.
+
+## 5. La web carga pero no aparecen datos
+
+Puede existir un problema de comunicación entre W-NCC y B-NCC.
+
+No modifiques la configuración. Comunica el problema al administrador.
+
+## 6. El navegador muestra información antigua
+
+Prueba una recarga sin caché:
+
+```text
+Ctrl + F5
+```
+
+## 7. FTP no conecta
+
+Comprueba que utilizas:
+
+```text
+192.168.10.20
+```
+
+Si no responde, puede existir un problema de red, routing, R-NCC, F-NCC o del propio servicio FTP.
+
+## 8. FTP conecta pero no transfiere
+
+Si puedes iniciar sesión pero `get` o `put` fallan, indica al administrador:
+
+- nombre del archivo
+- operación realizada
+- mensaje de error
+
+## 9. Información para el administrador
+
+Cuando comuniques una incidencia indica:
+
+- qué estabas haciendo
+- qué error apareció
+- desde qué equipo
+- hora aproximada
+- captura de pantalla si es posible
+
+📸 **CAPTURA RECOMENDADA:** ejemplo de un error real.
+
+## 10. Qué no debe hacer el usuario
+
+No se debe:
+
+- reiniciar servidores
+- modificar direcciones IP
+- cambiar reglas de firewall
+- modificar MySQL
+- cambiar configuraciones internas
+- compartir credenciales
