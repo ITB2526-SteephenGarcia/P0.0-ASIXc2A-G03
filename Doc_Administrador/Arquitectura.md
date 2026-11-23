@@ -18,44 +18,7 @@ La separación entre redes permite aplicar controles de acceso diferentes según
 
 ## 2. Esquema general
 
-La topología principal es la siguiente:
-
-```text
-                         Internet
-                            |
-                          R-NCC
-                 Router / Firewall / NAT
-                    /               \
-                   /                 \
-            DMZ 192.168.10.0/24   Intranet 192.168.20.0/24
-              /          \               |
-             /            \              |
-         W-NCC           F-NCC      Windows / Linux
-      192.168.10.10   192.168.10.20
-             |
-             |
-      Backend privado
-      192.168.30.0/24
-             |
-           B-NCC
-       192.168.30.10
-```
-
-📸 **CAPTURA RECOMENDADA**
-
-Añadir debajo de este apartado una captura del esquema real de red del proyecto.
-
-La captura debería permitir identificar:
-
-- R-NCC
-- W-NCC
-- B-NCC
-- F-NCC
-- cliente Windows
-- cliente Linux
-- DMZ
-- Intranet
-- red backend
+<img width="1448" height="1086" alt="imatge" src="https://github.com/user-attachments/assets/d8b333e6-60ec-48cc-be4b-fa7ac9c803e6" />
 
 ---
 
