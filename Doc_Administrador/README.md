@@ -10,25 +10,25 @@ L'objectiu és que una persona amb coneixements d'administració de sistemes pug
 
 La documentació d'administració inclou:
 
-- arquitectura general de la infraestructura;
-- configuració de xarxes;
-- funció de cada màquina;
-- serveis instal·lats;
-- dependències;
-- routing;
-- DHCP;
-- DNS;
-- NAT;
-- firewall;
-- servidor web;
-- base de dades;
-- FTP;
-- clients;
-- instal·lació;
-- manteniment;
-- incidències;
-- proves;
-- mesures de seguretat.
+- arquitectura general de la infraestructura
+- configuració de xarxes
+- funció de cada màquina
+- serveis instal·lats
+- dependències
+- routing
+- DHCP
+- DNS
+- NAT
+- firewall
+- servidor web
+- base de dades
+- FTP
+- clients
+- instal·lació
+- manteniment
+- incidències
+- proves
+- mesures de seguretat
 
 Aquesta documentació està orientada a deixar constància tècnica del desplegament realitzat i facilitar-ne l'administració posterior.
 
@@ -65,7 +65,7 @@ La infraestructura principal està formada per:
 
 B-NCC no està connectat directament a R-NCC.
 
-La comunicació amb MySQL es realitza exclusivament mitjançant W-NCC:
+La comunicació amb MySQL es realitza exclusivament mitjançant W-NCC.
 
 ```text
 W-NCC
@@ -114,45 +114,45 @@ Aquesta separació permet reduir l'exposició del servidor de base de dades.
 
 R-NCC concentra els serveis de xarxa principals:
 
-- routing IPv4;
-- forwarding;
-- DHCP;
-- DNS;
-- firewall UFW;
-- NAT;
-- control del trànsit entre DMZ i Intranet.
+- routing IPv4
+- forwarding
+- DHCP
+- DNS
+- firewall UFW
+- NAT
+- control del trànsit entre DMZ i Intranet
 
 ### W-NCC
 
 W-NCC conté:
 
-- NGINX;
-- PHP;
-- PHP-FPM;
-- PDO MySQL;
-- SSH;
-- aplicació web;
-- interfície privada cap a B-NCC.
+- NGINX
+- PHP
+- PHP-FPM
+- PDO MySQL
+- SSH
+- aplicació web
+- interfície privada cap a B-NCC
 
 ### B-NCC
 
 B-NCC conté:
 
-- MySQL 8;
-- base de dades `equipaments`;
-- usuaris MySQL diferenciats;
-- UFW;
-- SSH restringit;
-- xarxa backend privada.
+- MySQL 8
+- base de dades `equipaments`
+- usuaris MySQL diferenciats
+- UFW
+- SSH restringit
+- xarxa backend privada
 
 ### F-NCC
 
 F-NCC proporciona:
 
-- servei FTP;
-- autenticació;
-- pujada de fitxers;
-- descàrrega de fitxers.
+- servei FTP
+- autenticació
+- pujada de fitxers
+- descàrrega de fitxers
 
 ---
 
@@ -160,19 +160,19 @@ F-NCC proporciona:
 
 Les principals mesures de seguretat desplegades són:
 
-- segmentació de xarxes;
-- DMZ separada de la Intranet;
-- backend privat per a B-NCC;
-- firewall UFW;
-- forwarding restringit;
-- NAT a R-NCC;
-- MySQL accessible només des de W-NCC;
-- SSH de B-NCC accessible només des de W-NCC;
-- usuaris MySQL amb permisos diferenciats;
-- autenticació web;
-- control de rols;
-- protecció de rutes administratives;
-- contrasenyes web emmagatzemades mitjançant hash.
+- segmentació de xarxes
+- DMZ separada de la Intranet
+- backend privat per a B-NCC
+- firewall UFW
+- forwarding restringit
+- NAT a R-NCC
+- MySQL accessible només des de W-NCC
+- SSH de B-NCC accessible només des de W-NCC
+- usuaris MySQL amb permisos diferenciats
+- autenticació web
+- control de rols
+- protecció de rutes administratives
+- contrasenyes web emmagatzemades mitjançant hash
 
 Aquestes decisions tenen com a objectiu aplicar el principi de mínim privilegi i limitar els serveis exposats.
 
@@ -194,7 +194,7 @@ Aquestes decisions tenen com a objectiu aplicar el principi de mínim privilegi 
   Configuració del servidor web, NGINX, PHP, aplicació multicapa i connexió amb B-NCC.
 
 - [B-NCC](./B-NCC.md)  
-  Configuració de MySQL, xarxa backend, usuaris, permisos, bind-address, UFW i aïllament.
+  Configuració de MySQL, xarxa backend, usuaris, permisos, `bind-address`, UFW i aïllament.
 
 - [F-NCC](./F-NCC.md)  
   Configuració del servidor FTP i proves de transferència.
@@ -255,16 +255,16 @@ La validació de la infraestructura no es limita a comprovar que els serveis est
 
 També es tenen en compte criteris mesurables:
 
-- resposta dels serveis esperats;
-- disponibilitat dels ports configurats;
-- resolució DNS correcta;
-- assignació DHCP correcta;
-- comunicació només entre xarxes autoritzades;
-- accés MySQL restringit;
-- persistència de NAT;
-- disponibilitat de la web;
-- funcionament de les transferències FTP;
-- accés a Internet mitjançant el gateway del projecte.
+- resposta dels serveis esperats
+- disponibilitat dels ports configurats
+- resolució DNS correcta
+- assignació DHCP correcta
+- comunicació només entre xarxes autoritzades
+- accés MySQL restringit
+- persistència de NAT
+- disponibilitat de la web
+- funcionament de les transferències FTP
+- accés a Internet mitjançant el gateway del projecte
 
 Aquestes comprovacions permeten validar objectivament el funcionament del sistema.
 
@@ -274,19 +274,19 @@ Aquestes comprovacions permeten validar objectivament el funcionament del sistem
 
 La documentació d'administració inclou procediments per:
 
-- comprovar l'estat dels serveis;
-- reiniciar serveis;
-- validar fitxers de configuració;
-- revisar logs;
-- detectar errors de routing;
-- comprovar DNS;
-- verificar DHCP;
-- revisar NAT;
-- comprovar UFW;
-- validar ports;
-- comprovar MySQL;
-- verificar connectivitat;
-- recuperar comunicacions després d'un canvi de xarxa.
+- comprovar l'estat dels serveis
+- reiniciar serveis
+- validar fitxers de configuració
+- revisar logs
+- detectar errors de routing
+- comprovar DNS
+- verificar DHCP
+- revisar NAT
+- comprovar UFW
+- validar ports
+- comprovar MySQL
+- verificar connectivitat
+- recuperar comunicacions després d'un canvi de xarxa
 
 ---
 
@@ -294,29 +294,29 @@ La documentació d'administració inclou procediments per:
 
 Durant el projecte s'han produït incidències reals relacionades amb:
 
-- rutes incorrectes;
-- dues portes d'enllaç per defecte;
-- errors de NAT;
-- problemes de DNS;
-- canvi de numeració d'interfícies;
-- permisos MySQL;
-- hashes incorrectes;
-- configuració NGINX;
-- forwarding FTP;
-- routing de retorn;
-- aïllament de B-NCC.
+- rutes incorrectes
+- dues portes d'enllaç per defecte
+- errors de NAT
+- problemes de DNS
+- canvi de numeració d'interfícies
+- permisos MySQL
+- hashes incorrectes
+- configuració NGINX
+- forwarding FTP
+- routing de retorn
+- aïllament de B-NCC
 
 Aquestes incidències es documenten a:
 
 - [Incidències](./Incidencias.md)
 
-La finalitat no és només indicar l'error, sinó deixar constància de:
+La finalitat no és només indicar l'error, sinó deixar constància de cinc punts:
 
-1. símptoma;
-2. causa;
-3. diagnòstic;
-4. solució;
-5. verificació posterior.
+1. símptoma
+2. causa
+3. diagnòstic
+4. solució
+5. verificació posterior
 
 ---
 
@@ -324,56 +324,60 @@ La finalitat no és només indicar l'error, sinó deixar constància de:
 
 Les proves tècniques principals que formen part del projecte són:
 
-- ping entre equips autoritzats;
-- `ip route`;
-- `ip a`;
-- `systemctl status`;
-- `ufw status`;
-- `ss`;
-- `nslookup`;
-- `dig`;
-- `Test-NetConnection`;
-- connexió SSH;
-- connexió MySQL;
-- consultes SQL;
-- proves FTP;
-- navegació web;
-- proves de rols;
-- proves CRUD;
-- contadors NAT.
+- `ping`
+- `ip route`
+- `ip a`
+- `systemctl status`
+- `ufw status`
+- `ss`
+- `nslookup`
+- `dig`
+- `Test-NetConnection`
+- connexió SSH
+- connexió MySQL
+- consultes SQL
+- proves FTP
+- navegació web
+- proves de rols
+- proves CRUD
+- comptadors NAT
 
-📸 **CAPTURA RECOMANADA:** conservar captures de les proves importants, especialment:
+📸 **CAPTURA RECOMANADA**
 
-- DHCP assignant IP;
-- DNS resolent noms;
-- NAT amb comptadors diferents de zero;
-- UFW de B-NCC;
-- MySQL amb `889` registres;
-- FTP amb `get` i `put`;
-- login lector;
-- login administrador;
-- accés denegat del lector a una ruta administrativa.
+Convé conservar captures de les proves més importants:
+
+- DHCP assignant la IP al client Windows
+- DNS resolent els noms interns
+- NAT amb comptadors diferents de zero
+- UFW de B-NCC
+- MySQL mostrant els `889` registres
+- FTP amb descàrrega i pujada
+- login com a lector
+- login com a administrador
+- accés denegat del lector a una ruta administrativa
+
+Aquestes captures es col·locaran als documents específics on tinguin més sentit.
 
 ---
 
 ## 13. Relació amb la rúbrica
 
-Aquesta documentació està estructurada per donar cobertura a criteris relacionats amb:
+Aquesta documentació està estructurada per donar cobertura als criteris relacionats amb:
 
-- arquitectura;
-- configuracions;
-- dependències;
-- instal·lació;
-- manteniment;
-- resolució d'incidències;
-- seguretat;
-- proves;
-- rendiment;
-- disponibilitat;
-- aplicació correcta de tecnologies;
-- documentació tècnica exhaustiva.
+- arquitectura
+- configuracions
+- dependències
+- instal·lació
+- manteniment
+- resolució d'incidències
+- seguretat
+- proves
+- rendiment
+- disponibilitat
+- aplicació correcta de tecnologies
+- documentació tècnica exhaustiva
 
-La documentació d'administració no substitueix el seguiment de tasques ni la documentació d'usuari, sinó que forma part del conjunt documental del projecte.
+La documentació d'administració forma part del conjunt documental del projecte juntament amb la documentació d'usuari, procés, configuracions i scripts.
 
 ---
 
@@ -381,12 +385,12 @@ La documentació d'administració no substitueix el seguiment de tasques ni la d
 
 La finalitat d'aquesta carpeta és permetre que un administrador pugui:
 
-- entendre la infraestructura;
-- identificar ràpidament cada màquina;
-- localitzar la documentació correcta;
-- revisar configuracions;
-- comprovar el funcionament dels serveis;
-- aplicar manteniment;
-- detectar incidències;
-- revisar la seguretat;
-- validar l'estat global del projecte.
+- entendre la infraestructura
+- identificar ràpidament cada màquina
+- localitzar la documentació correcta
+- revisar configuracions
+- comprovar el funcionament dels serveis
+- aplicar manteniment
+- detectar incidències
+- revisar la seguretat
+- validar l'estat global del projecte
