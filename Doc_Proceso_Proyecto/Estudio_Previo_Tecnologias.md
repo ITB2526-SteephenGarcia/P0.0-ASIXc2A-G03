@@ -1,5 +1,31 @@
 # Estudio previo y justificación de tecnologías
 
+## Índice rápido
+
+- [1. Objetivo](#1-objetivo)
+- [2. Necesidades del proyecto](#2-necesidades-del-proyecto)
+- [3. Virtualización](#3-virtualización)
+  - [IsardVDI](#32-isardvdi)
+  - [Proxmox VE](#33-proxmox-ve)
+  - [Oracle VirtualBox](#34-oracle-virtualbox)
+  - [VMware vSphere](#35-vmware-vsphere)
+  - [Comparación](#36-comparación)
+  - [Por qué utilizamos IsardVDI](#37-por-qué-utilizamos-isardvdi)
+- [4. Servidor web](#4-servidor-web)
+- [5. Base de datos](#5-base-de-datos)
+- [6. PHP y PHP-FPM](#6-php-y-php-fpm)
+- [7. DNS](#7-dns)
+- [8. DHCP](#8-dhcp)
+- [9. Firewall](#9-firewall)
+- [10. SSH](#10-ssh)
+- [11. FTP](#11-ftp)
+- [12. Análisis de soluciones y oportunidad del proyecto](#12-análisis-de-soluciones-y-oportunidad-del-proyecto)
+- [13. Decisiones finales](#13-decisiones-finales)
+- [14. Fuentes consultadas](#14-fuentes-consultadas)
+- [15. Conclusión](#15-conclusión)
+
+---
+
 ## 1. Objetivo
 
 Antes de desplegar la infraestructura del proyecto **P.0-ASIXc2A-G03** se analizaron distintas tecnologías que podían utilizarse para virtualización, servidor web, base de datos, DNS, DHCP, firewall y acceso remoto.
