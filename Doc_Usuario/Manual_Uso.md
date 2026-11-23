@@ -1,74 +1,167 @@
 # Manual de uso
 
-Este manual explica cómo se usará la web del proyecto para consultar los equipamientos educativos.
+Este documento explica cómo utilizar la aplicación web del proyecto **P.0-ASIXc2A-G03**.
 
-> ⚠️ **Estado actual:** la página web funciona y la base de datos está cargada, pero la **conexión entre ambas todavía está en desarrollo**. Este manual está escrito pensando en el funcionamiento final. Las partes que aún no existen están marcadas como **(previsto)**.
+## 1. Acceso a la aplicación
 
-## 1. Cómo acceder a la aplicación
+Desde un equipo conectado a la Intranet, abre un navegador y accede a:
 
-1. Comprueba que cumples los [requisitos de acceso](Requisitos_Acceso.md).
-2. Abre el navegador.
-3. Escribe en la barra de direcciones la dirección de la web del proyecto.
-4. Pulsa **Enter**.
+```text
+http://192.168.10.10/
+```
 
-> 📷 Añadir aquí una captura del navegador con la dirección escrita en la barra.
+También se puede utilizar el nombre DNS interno:
 
-Si todo va bien, se cargará la página principal.
+```text
+http://w-ncc.asix3jyt.local/
+```
 
-## 2. Qué te vas a encontrar
+📸 **CAPTURA RECOMENDADA:** pantalla inicial o login de la aplicación.
 
-### Estado actual
+## 2. Inicio de sesión
 
-Una página de inicio básica que confirma que el servidor web funciona.
+La aplicación requiere autenticación.
 
-> 📷 Añadir aquí una captura de la página principal actual.
+Introduce:
 
-### Funcionamiento final previsto
+- nombre de usuario
+- contraseña
 
-Está previsto que la página permita consultar la información de los equipamientos guardada en la base de datos, mostrándola en pantalla de forma ordenada.
+Si las credenciales son correctas, se crea una sesión y se accede al listado de equipamientos.
 
-> 📷 Añadir aquí una captura de la página con los datos de los equipamientos (cuando esté disponible).
+## 3. Roles
 
-## 3. Qué información se podrá consultar
+Existen dos roles:
 
-La información viene de la tabla **equipaments**, que contiene **889 registros** de equipamientos educativos. Los campos concretos que se verán en pantalla se definirán cuando termine la integración.
+```text
+lector
+admin
+```
 
-> 🛠️ **Pendiente de definir:** lista exacta de columnas que se mostrarán al usuario.
+### Usuario lector
 
-## 4. Cómo consultar la información
+Puede:
 
-**(Previsto)** Al entrar en la web, el usuario podrá ver el listado de equipamientos que haya cargado la página.
+- iniciar sesión
+- consultar equipamientos
+- navegar por las páginas
+- cerrar sesión
 
-Pasos esperados:
+No puede crear, editar ni eliminar.
 
-1. Entrar en la página principal.
-2. Ver los datos de los equipamientos en pantalla.
-3. Desplazarse por la página para ver más registros.
+### Usuario administrador
 
-> ℹ️ Funciones como buscadores, filtros u ordenación **no están definidas** todavía. Si se añaden, se explicarán aquí.
+Puede:
 
-> 📷 Añadir aquí una captura de un ejemplo de consulta con resultados.
+- consultar equipamientos
+- crear registros
+- editar registros
+- eliminar registros
+- cerrar sesión
 
-## 5. Cómo volver al inicio
+📸 **CAPTURA RECOMENDADA:** comparar la vista del lector con la vista del administrador.
 
-- Pulsa el enlace de inicio de la página, si existe.
-- Si no, vuelve a escribir la dirección de la web en el navegador.
+## 4. Consulta de equipamientos
 
-## 6. Cómo se espera que se comporte el sistema
+Después del login se muestra el listado de equipamientos almacenados en la base de datos.
 
-- La página debería cargar en pocos segundos.
-- Los datos mostrados deben coincidir con los de la base de datos.
-- Si hay un fallo, debería aparecer un mensaje de error en lugar de una página en blanco **(previsto)**.
-- El usuario **solo consulta**: no modifica los datos. *(Está por confirmar si habrá otras funciones.)*
+La tabla original contiene **889 filas**. La aplicación agrupa resultados por `register_id`, por lo que el número de equipamientos mostrados en la web es inferior al número de filas originales.
 
-## 7. Qué hacer si algo no funciona
+La página utiliza paginación y muestra aproximadamente **25 elementos por página**.
 
-Consulta [Problemas frecuentes](Problemas_Frecuentes.md). Si no se soluciona, avisa al administrador.
+## 5. Crear un equipamiento
 
-## 8. Funciones previstas para más adelante
+Solo el administrador puede crear registros.
 
-| Función | Estado |
-|---------|--------|
-| Mostrar los equipamientos de la base de datos en la web | 🛠️ En desarrollo |
-| Acceso mediante un nombre de dominio | 📅 Previsto |
-| Mejoras de seguridad en el acceso | 📅 Previsto (siguiente sprint) |
+Pasos:
+
+1. iniciar sesión como administrador
+2. pulsar la opción para añadir un equipamiento
+3. completar el formulario
+4. revisar los datos
+5. guardar
+
+El formulario utiliza listas desplegables en algunos campos para reducir errores de escritura.
+
+## 6. Editar un equipamiento
+
+Solo el administrador puede modificar registros.
+
+Pasos:
+
+1. localizar el equipamiento
+2. pulsar `Editar`
+3. modificar los campos necesarios
+4. guardar los cambios
+
+Durante las pruebas se obtuvo el mensaje:
+
+```text
+Equipamiento modificado correctamente.
+```
+
+## 7. Eliminar un equipamiento
+
+Solo el administrador puede eliminar registros.
+
+La aplicación muestra una confirmación antes de realizar la operación.
+
+## 8. Protección de acceso
+
+Ocultar los botones no es la única medida de seguridad.
+
+Si un lector intenta acceder directamente a una ruta administrativa, la aplicación responde:
+
+```text
+Acceso denegado. Se requieren permisos de administrador.
+```
+
+con código:
+
+```text
+HTTP 403
+```
+
+📸 **CAPTURA RECOMENDADA:** error 403 utilizando el usuario lector.
+
+## 9. Cerrar sesión
+
+Cuando termines de utilizar la aplicación, usa la opción de logout.
+
+La aplicación dispone de:
+
+```text
+/logout.php
+```
+
+Después de cerrar sesión será necesario autenticarse de nuevo para acceder a las páginas protegidas.
+
+## 10. Buenas prácticas
+
+- no compartir las credenciales
+- cerrar sesión al terminar
+- revisar los datos antes de guardar cambios
+- comprobar el registro antes de eliminarlo
+- utilizar una cuenta administrativa solo cuando sea necesario
+
+## 11. Problemas
+
+Si el acceso por nombre DNS falla, prueba temporalmente:
+
+```text
+http://192.168.10.10/
+```
+
+Si por IP funciona pero por nombre no, puede existir un problema DNS.
+
+Para más casos consulta [Problemas frecuentes](./Problemas_Frecuentes.md).
+
+## Evidencias pendientes
+
+📸 login  
+📸 vista lector  
+📸 vista administrador  
+📸 formulario de creación  
+📸 modificación correcta  
+📸 confirmación de eliminación  
+📸 error HTTP 403
