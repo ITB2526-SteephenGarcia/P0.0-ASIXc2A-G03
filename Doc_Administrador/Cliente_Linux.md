@@ -452,17 +452,19 @@ ping 8.8.8.8
 
 ## 20. Criterios de validación
 
+> ⚠️ La validación final de este cliente está pendiente de repetirse y documentarse con evidencias actuales. Por este motivo los siguientes puntos no se marcan como completados hasta disponer de las pruebas reales.
+
 El cliente Linux se considera correctamente integrado cuando:
 
-- [x] pertenece a la red `192.168.20.0/24`
-- [x] puede comunicarse con R-NCC
-- [x] puede acceder a W-NCC
-- [x] puede acceder a F-NCC
-- [x] utiliza R-NCC como gateway
-- [x] puede resolver nombres internos
-- [x] puede acceder a la aplicación web
-- [x] no necesita acceso directo a B-NCC
-- [x] forma parte de la Intranet
+- [ ] pertenece a la red `192.168.20.0/24`
+- [ ] puede comunicarse con R-NCC
+- [ ] puede acceder a W-NCC
+- [ ] puede acceder a F-NCC
+- [ ] utiliza R-NCC como gateway
+- [ ] puede resolver nombres internos
+- [ ] puede acceder a la aplicación web
+- [ ] no necesita acceso directo a B-NCC
+- [ ] forma parte de la Intranet
 
 ---
 
