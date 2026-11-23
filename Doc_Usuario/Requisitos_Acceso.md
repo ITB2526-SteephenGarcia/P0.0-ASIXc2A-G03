@@ -1,47 +1,104 @@
 # Requisitos de acceso
 
-Para usar el servicio no hace falta instalar nada especial. Lo que necesitas es lo siguiente.
+Para utilizar los servicios del proyecto no es necesario instalar software especializado.
 
-## 1. Un equipo conectado a la red del proyecto
+## 1. Equipo conectado a la Intranet
 
-Debes usar un equipo que esté dentro de la red interna del proyecto. Por ahora hay dos tipos de equipo cliente preparados:
+El equipo debe estar conectado a:
 
-- **Cliente Linux**
-- **Cliente Windows**
+```text
+192.168.20.0/24
+```
 
-Si tu equipo no está conectado a esta red, no podrás llegar a la página web.
+Los clientes utilizados en el proyecto son Windows y Linux.
 
-## 2. Un navegador web actualizado
+R-NCC actúa como gateway:
 
-Sirve cualquier navegador moderno, por ejemplo:
+```text
+192.168.20.1
+```
 
-- Mozilla Firefox
-- Google Chrome
-- Microsoft Edge
+## 2. Configuración de red
 
-> 📷 Añadir aquí una captura de un navegador abierto en el equipo cliente (Linux o Windows).
+El cliente debe disponer de:
 
-## 3. Acceso autorizado
+- dirección IP válida
+- gateway correcto
+- servidor DNS
+- conectividad con R-NCC
 
-El acceso a la infraestructura está limitado a usuarios autorizados. Si no sabes si tienes permiso, pregunta al administrador.
+R-NCC proporciona DHCP a los clientes.
 
-> 🛠️ **En desarrollo:** de momento no hay inicio de sesión (usuario y contraseña) en la web. Si se añade más adelante, se explicará en el [Manual de uso](Manual_Uso.md).
+Durante las pruebas, Windows recibió:
 
-## 4. Dirección de la página web
+```text
+IP:      192.168.20.100
+Gateway: 192.168.20.1
+DNS:     192.168.20.1
+```
 
-Necesitas la dirección del servidor web (W-NCC) para escribirla en el navegador.
+La dirección exacta del cliente puede variar.
 
-| Dato | Valor |
-|------|-------|
-| Dirección de la web | `http://<dirección-del-servidor>` *(a completar cuando esté definida)* |
+## 3. Navegador
 
-> ℹ️ Está previsto que más adelante la web tenga un nombre fácil de recordar (dominio) gracias al servicio DNS. Cuando esté disponible, lo actualizaremos aquí.
+Se puede utilizar un navegador moderno como Firefox, Chrome o Edge.
 
-## Resumen rápido
+## 4. Credenciales
 
-- [ ] Mi equipo está conectado a la red del proyecto.
-- [ ] Tengo un navegador web instalado.
-- [ ] Tengo permiso para acceder.
-- [ ] Conozco la dirección de la web.
+La aplicación requiere usuario y contraseña.
 
-Si marcas los cuatro puntos, ya puedes pasar al [Manual de uso](Manual_Uso.md).
+Los roles disponibles son:
+
+```text
+lector
+admin
+```
+
+Los permisos dependen del rol asignado.
+
+## 5. Dirección de la aplicación
+
+Por IP:
+
+```text
+http://192.168.10.10/
+```
+
+Por DNS:
+
+```text
+http://w-ncc.asix3jyt.local/
+```
+
+## 6. FTP
+
+Servidor:
+
+```text
+192.168.10.20
+```
+
+Nombre DNS:
+
+```text
+f-ncc.asix3jyt.local
+```
+
+Puerto:
+
+```text
+21/TCP
+```
+
+Consulta [Manual FTP](./Manual_FTP.md) para utilizar el servicio.
+
+## Checklist
+
+- [ ] estoy conectado a la Intranet
+- [ ] tengo una IP válida
+- [ ] utilizo R-NCC como gateway
+- [ ] tengo navegador
+- [ ] conozco la dirección de la aplicación
+- [ ] tengo credenciales válidas
+
+Si se cumplen estos puntos, continúa con el [Manual de uso](./Manual_Uso.md).
