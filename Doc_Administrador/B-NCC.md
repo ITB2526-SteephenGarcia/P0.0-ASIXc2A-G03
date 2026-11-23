@@ -1,437 +1,760 @@
-# B-NCC - Servidor de Base de Datos
+# B-NCC
 
-## Función
+## 1. Función de B-NCC
 
-`B-NCC` es el servidor de base de datos del proyecto.
+B-NCC es el servidor de base de datos del proyecto **P.0-ASIXc2A-G03**.
 
 Su función principal es almacenar y gestionar los datos utilizados por la aplicación web.
 
-Actualmente utiliza MySQL y contiene la base de datos `equipaments`, donde se ha importado el CSV proporcionado para el proyecto.
+B-NCC utiliza:
 
-En la arquitectura final, `B-NCC` estará dentro de una red backend privada y aislada, accesible únicamente desde `W-NCC`.
+- Ubuntu Server
+- MySQL 8
+- UFW
+- SSH restringido
+- una red backend privada
 
----
+La característica principal de su diseño es que **no está conectado directamente a R-NCC**.
 
-## Sistema operativo
-
-`B-NCC` está desplegado como máquina virtual en Isard.
-
-El sistema operativo utilizado es:
-
-```text
-Ubuntu Server
-```
+Esto permite mantener la base de datos aislada de la DMZ y de la Intranet.
 
 ---
 
-## Hostname
+## 2. Ubicación dentro de la arquitectura
 
-El nombre configurado para la máquina es:
+B-NCC se encuentra en la red backend privada.
 
-```text
-B-NCC
-```
-
-Se puede comprobar con:
-
-```bash
-hostname
-```
-
----
-
-## Dirección IP actual
-
-Actualmente `B-NCC` está conectado a la red Intranet con la dirección:
-
-```text
-192.168.20.10/24
-```
-
-Esta configuración corresponde al estado actual del proyecto.
-
----
-
-## Dirección IP prevista
-
-En la arquitectura final, `B-NCC` se moverá a una red backend privada:
-
-```text
+```text id="c1yt3g"
+Backend
 192.168.30.0/24
 ```
 
-La dirección prevista para el servidor será:
+Dirección de B-NCC:
 
-```text
+```text id="p08un6"
 192.168.30.10/24
 ```
 
-Esta red estará conectada únicamente con `W-NCC`.
+Dirección de W-NCC en esta red:
 
-Los clientes Linux y Windows no tendrán acceso directo a esta red.
+```text id="f8yxgl"
+192.168.30.1/24
+```
 
----
+El esquema de comunicación es:
 
-## Red backend aislada
-
-La comunicación prevista será:
-
-```text
+```text id="e0f31o"
 W-NCC
-   |
-   | Red Backend privada
-   |
-Firewall
-   |
-   v
+192.168.30.1
+      |
+      |
+Backend privado
+192.168.30.0/24
+      |
+      |
 B-NCC
-```
-
-La base de datos solo aceptará conexiones MySQL procedentes de `W-NCC`.
-
-El puerto utilizado será:
-
-```text
-TCP 3306
-```
-
-El resto de accesos deberán quedar bloqueados mediante firewall.
-
----
-
-## Instalación de MySQL
-
-MySQL se instala con:
-
-```bash
-sudo apt update
-sudo apt install mysql-server -y
+192.168.30.10
 ```
 
 ---
 
-## Comprobación del servicio
+## 3. Aislamiento de B-NCC
 
-Para comprobar que MySQL está funcionando:
+Durante el despliegue inicial, B-NCC disponía también de una interfaz conectada a la red exterior de IsardVDI.
 
-```bash
-sudo systemctl status mysql
+Para mejorar la seguridad, esa interfaz fue eliminada.
+
+La configuración final mantiene únicamente:
+
+- WireGuard
+- red backend privada
+
+De esta manera, B-NCC no dispone de una conexión directa a la DMZ ni a la Intranet.
+
+Tampoco depende de R-NCC para comunicarse con W-NCC.
+
+---
+
+## 4. Cambio de interfaces
+
+Después de eliminar la interfaz Default de IsardVDI, la numeración de interfaces cambió.
+
+La configuración final quedó con:
+
+```text id="upw3tn"
+enp1s0 -> WireGuard
+enp2s0 -> Backend
 ```
 
-El estado esperado es:
+La interfaz backend utiliza:
 
-```text
-active (running)
+```text id="5xj42h"
+192.168.30.10/24
 ```
 
 ---
 
-## Inicio y reinicio de MySQL
+## 5. Configuración de red
 
-Iniciar el servicio:
+La configuración de red se realizó mediante Netplan.
 
-```bash
-sudo systemctl start mysql
+Ejemplo de configuración final:
+
+```yaml id="e1v0me"
+network:
+  version: 2
+  ethernets:
+    enp1s0:
+      dhcp4: true
+
+    enp2s0:
+      dhcp4: false
+      addresses:
+        - 192.168.30.10/24
 ```
 
-Reiniciarlo:
+Después de aplicar los cambios:
 
-```bash
-sudo systemctl restart mysql
+```bash id="1fnq0a"
+sudo netplan apply
 ```
 
-Habilitarlo al iniciar el sistema:
+se verificó la dirección IP mediante:
 
-```bash
-sudo systemctl enable mysql
-```
-
----
-
-## Acceso a MySQL
-
-Para acceder al servidor MySQL de forma local:
-
-```bash
-sudo mysql
-```
-
----
-
-## Base de datos
-
-La base de datos creada para el proyecto se llama:
-
-```text
-equipaments
-```
-
-Se puede comprobar con:
-
-```sql
-SHOW DATABASES;
-```
-
-Después:
-
-```sql
-USE equipaments;
-```
-
----
-
-## Tabla principal
-
-Actualmente la base de datos contiene la tabla:
-
-```text
-equipaments
-```
-
-Se puede comprobar con:
-
-```sql
-SHOW TABLES;
-```
-
----
-
-## Datos importados
-
-Los datos utilizados proceden del CSV proporcionado para el proyecto.
-
-El archivo original estaba codificado en UTF-16, por lo que fue necesario convertirlo a UTF-8 antes de importarlo.
-
-Ejemplo de conversión:
-
-```bash
-iconv -f UTF-16 -t UTF-8 equipaments.csv > equipaments_utf8.csv
-```
-
-Después se importaron los datos en MySQL.
-
----
-
-## Número de registros
-
-Actualmente la tabla contiene:
-
-```text
-889 registros
-```
-
-Se puede comprobar con:
-
-```sql
-SELECT COUNT(*) FROM equipaments;
-```
-
----
-
-## Consulta de ejemplo
-
-Para comprobar que los datos están correctamente almacenados:
-
-```sql
-SELECT name, addresses_district_name
-FROM equipaments
-LIMIT 10;
-```
-
-Esta consulta muestra el nombre de diferentes equipamientos junto con su distrito.
-
----
-
-## Estructura de los datos
-
-La tabla contiene las columnas importadas directamente desde el CSV original.
-
-En esta primera fase se mantuvo una estructura sencilla para asegurar una importación correcta.
-
-Todavía no se ha aplicado un modelo relacional completo ni una normalización avanzada.
-
-Estas mejoras se podrán realizar durante los siguientes sprints.
-
----
-
-## Dependencias
-
-Para que `B-NCC` funcione correctamente se necesita:
-
-- Sistema operativo Ubuntu Server.
-- MySQL Server instalado.
-- Servicio MySQL activo.
-- Red backend correctamente configurada.
-- Conectividad con `W-NCC`.
-- Firewall correctamente configurado.
-- Usuario MySQL autorizado.
-- Base de datos `equipaments`.
-
----
-
-## Seguridad
-
-En la arquitectura final se aplicarán las siguientes medidas:
-
-- `B-NCC` estará fuera de la Intranet.
-- Estará conectado únicamente a una red backend privada.
-- Solo `W-NCC` podrá acceder a MySQL.
-- El puerto `3306` estará bloqueado para el resto de equipos.
-- No se permitirá acceso directo desde los clientes.
-- Las reglas de firewall limitarán el tráfico autorizado.
-
-Las reglas concretas se documentarán en:
-
-[Seguridad y Firewall](Seguridad-Firewall.md)
-
----
-
-## Comprobaciones rápidas
-
-Estado de MySQL:
-
-```bash
-sudo systemctl status mysql
-```
-
-Comprobar IP:
-
-```bash
+```bash id="2jvrua"
 ip a
 ```
 
-Comprobar rutas:
+y la tabla de rutas mediante:
 
-```bash
+```bash id="6gnq7n"
 ip route
 ```
 
-Acceder a MySQL:
+---
 
-```bash
-sudo mysql
+## 6. Ruta backend
+
+B-NCC dispone de una ruta directa hacia:
+
+```text id="6jkp0i"
+192.168.30.0/24
 ```
 
-Comprobar base de datos:
+La interfaz utilizada es:
 
-```sql
-SHOW DATABASES;
+```text id="10ze0p"
+enp2s0
+```
+
+Origen:
+
+```text id="7v767w"
+192.168.30.10
+```
+
+Esto permite la comunicación directa con W-NCC.
+
+---
+
+## 7. MySQL
+
+B-NCC utiliza:
+
+```text id="wgmxq2"
+MySQL 8
+```
+
+La base de datos principal es:
+
+```text id="2nu1u3"
+equipaments
+```
+
+La tabla principal también se llama:
+
+```text id="cu63ll"
+equipaments
+```
+
+---
+
+## 8. Datos importados
+
+Los datos utilizados proceden de Barcelona Open Data.
+
+El archivo original estaba en formato CSV.
+
+Antes de la importación fue necesario convertir la codificación de:
+
+```text id="6zjueg"
+UTF-16
+```
+
+a:
+
+```text id="f7xn5c"
+UTF-8
+```
+
+La tabla contiene:
+
+```text id="n9e0iz"
+889 registros
+```
+
+La comprobación se realizó mediante:
+
+```sql id="n8d7ns"
 USE equipaments;
-SHOW TABLES;
 SELECT COUNT(*) FROM equipaments;
 ```
 
+Resultado:
+
+```text id="fow1kl"
+889
+```
+
 ---
 
-## Mantenimiento básico
+## 9. Bind address
 
-Durante el mantenimiento se recomienda comprobar regularmente:
+MySQL no escucha en todas las interfaces.
 
-```bash
+La configuración se encuentra en:
+
+```text id="i7xk4n"
+/etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+La opción utilizada es:
+
+```text id="uq4ew3"
+bind-address = 192.168.30.10
+```
+
+Esto hace que MySQL escuche únicamente en la interfaz backend.
+
+---
+
+## 10. Puertos de MySQL
+
+La comprobación del puerto se realiza mediante:
+
+```bash id="m2q2gl"
+sudo ss -lntp | grep 3306
+```
+
+El resultado esperado es:
+
+```text id="5eruot"
+192.168.30.10:3306
+```
+
+También puede aparecer el servicio MySQL X en localhost.
+
+```text id="7wwc26"
+127.0.0.1:33060
+```
+
+El puerto importante para la aplicación es:
+
+```text id="v4638f"
+3306
+```
+
+---
+
+## 11. Usuarios MySQL
+
+Se utilizan diferentes cuentas para separar permisos.
+
+### Usuario de lectura
+
+Usuario:
+
+```text id="8r835l"
+bchecker
+```
+
+Origen permitido:
+
+```text id="r4o4u5"
+192.168.30.1
+```
+
+Permisos:
+
+```text id="mhqut6"
+SELECT
+```
+
+Este usuario se utiliza para las consultas normales de la aplicación.
+
+---
+
+## 12. Usuario administrativo
+
+Usuario:
+
+```text id="zt9xwq"
+web_admin
+```
+
+Origen permitido:
+
+```text id="pk0url"
+192.168.30.1
+```
+
+Permisos:
+
+```text id="5j7jdx"
+SELECT
+INSERT
+UPDATE
+DELETE
+```
+
+Esta cuenta se utiliza únicamente para operaciones administrativas del CRUD.
+
+---
+
+## 13. Restricción por origen
+
+Los usuarios MySQL no están creados para cualquier origen.
+
+Están limitados a:
+
+```text id="v2dpt5"
+192.168.30.1
+```
+
+Esto significa que solamente W-NCC puede autenticarse utilizando esas cuentas.
+
+Este control añade una segunda capa de seguridad además del firewall.
+
+---
+
+## 14. Prueba de acceso permitido
+
+Desde W-NCC se comprobó la conexión MySQL.
+
+Ejemplo:
+
+```bash id="h6nrsk"
+mysql -h 192.168.30.10 -u bchecker -p
+```
+
+Después se ejecutó:
+
+```sql id="gdt88u"
+USE equipaments;
+SELECT COUNT(*) FROM equipaments;
+```
+
+Resultado:
+
+```text id="n48cvr"
+889
+```
+
+Esto demuestra que W-NCC puede comunicarse correctamente con B-NCC.
+
+---
+
+## 15. Prueba de acceso no permitido
+
+También se realizó una prueba desde B-NCC utilizando la cuenta `bchecker`.
+
+El servidor rechazó la conexión con un mensaje similar a:
+
+```text id="ol2mto"
+ERROR 1130
+Host 'B-NCC' is not allowed to connect to this MySQL server
+```
+
+Este resultado es correcto.
+
+La cuenta `bchecker` solo está autorizada desde:
+
+```text id="s1gwdl"
+192.168.30.1
+```
+
+por lo que ni siquiera B-NCC puede utilizar esa cuenta desde otro origen.
+
+Esta prueba ayuda a demostrar que la restricción por host funciona.
+
+---
+
+## 16. Firewall UFW
+
+B-NCC utiliza UFW para limitar el acceso.
+
+El firewall está activo y restringe los servicios principales.
+
+Las reglas finales permiten:
+
+```text id="i2g55u"
+3306/tcp desde 192.168.30.1
+22/tcp desde 192.168.30.1
+```
+
+Esto significa que W-NCC es el único equipo autorizado para acceder a:
+
+- MySQL
+- SSH
+
+---
+
+## 17. MySQL restringido
+
+El puerto:
+
+```text id="88iu5t"
+3306/tcp
+```
+
+solo está permitido desde:
+
+```text id="tqclqu"
+192.168.30.1
+```
+
+Esto evita que otros equipos puedan intentar conectarse directamente al servidor de base de datos.
+
+---
+
+## 18. SSH restringido
+
+El puerto:
+
+```text id="6ep27u"
+22/tcp
+```
+
+también está limitado a:
+
+```text id="8pggl1"
+192.168.30.1
+```
+
+Esto significa que la administración remota de B-NCC desde la red del proyecto debe realizarse a través de W-NCC.
+
+---
+
+## 19. Mejora de seguridad aplicada
+
+Inicialmente existían reglas SSH más abiertas.
+
+Se permitió temporalmente SSH desde cualquier origen.
+
+Después se añadió la regla específica para W-NCC y se eliminaron las reglas generales.
+
+La configuración final mantiene únicamente el acceso desde:
+
+```text id="hz0y0k"
+192.168.30.1
+```
+
+Esta mejora reduce la superficie de exposición.
+
+---
+
+## 20. Esquema de seguridad
+
+```text id="2zddwm"
+                Otros equipos
+                    |
+                    X
+                    |
+              B-NCC bloqueado
+
+W-NCC 192.168.30.1
+        |
+        +------ SSH 22 ------> B-NCC
+        |
+        +------ MySQL 3306 --> B-NCC
+```
+
+El símbolo `X` representa tráfico no permitido.
+
+---
+
+## 21. Base de datos de usuarios web
+
+Además de la tabla de equipamientos, se utiliza una tabla:
+
+```text id="1fl10e"
+usuarios
+```
+
+Campos principales:
+
+```text id="0aj37t"
+id
+username
+password_hash
+rol
+```
+
+Los roles utilizados son:
+
+```text id="q87y69"
+lector
+admin
+```
+
+---
+
+## 22. Contraseñas
+
+Las contraseñas web se almacenan mediante hashes.
+
+Se utiliza bcrypt a través de PHP.
+
+La longitud observada del hash es:
+
+```text id="ka6dpu"
+60 caracteres
+```
+
+La validación se realiza mediante:
+
+```php id="ay8ygu"
+password_verify()
+```
+
+Esto evita almacenar contraseñas web directamente en texto plano.
+
+---
+
+## 23. Diferencia entre usuarios web y MySQL
+
+Es importante diferenciar dos tipos de usuarios.
+
+### Usuarios web
+
+Se almacenan en:
+
+```text id="g4jr37"
+equipaments.usuarios
+```
+
+Se utilizan para:
+
+- login
+- sesiones
+- roles
+
+Ejemplos:
+
+```text id="w5bf40"
+bchecker
+web_admin
+```
+
+---
+
+### Usuarios MySQL
+
+Son cuentas del propio servidor MySQL.
+
+Se utilizan para:
+
+- establecer la conexión desde PHP
+- consultar datos
+- modificar datos
+
+Aunque los nombres puedan coincidir, son mecanismos de autenticación diferentes.
+
+---
+
+## 24. Dependencias
+
+B-NCC depende principalmente de:
+
+### W-NCC
+
+Es el único equipo que utiliza directamente los servicios de B-NCC.
+
+### MySQL
+
+La aplicación necesita que MySQL esté activo.
+
+### Red backend
+
+Si la interfaz:
+
+```text id="jzo6c5"
+192.168.30.10
+```
+
+deja de funcionar, W-NCC pierde la conexión con la base de datos.
+
+---
+
+## 25. Riesgos
+
+### Caída de MySQL
+
+La aplicación web deja de poder consultar y modificar datos.
+
+### Error en UFW
+
+Una regla incorrecta puede bloquear W-NCC o exponer MySQL.
+
+### Error en bind-address
+
+MySQL puede dejar de escuchar en la red backend o quedar expuesto en interfaces no deseadas.
+
+### Pérdida de la interfaz backend
+
+W-NCC no puede alcanzar la base de datos.
+
+### Permisos excesivos
+
+Una cuenta con permisos innecesarios puede aumentar el impacto de un posible fallo de seguridad.
+
+---
+
+## 26. Diagnóstico de red
+
+### Interfaces
+
+```bash id="nw6bqa"
+ip a
+```
+
+### Rutas
+
+```bash id="mzk1ld"
+ip route
+```
+
+### Conectividad con W-NCC
+
+```bash id="jjyp45"
+ping 192.168.30.1
+```
+
+---
+
+## 27. Diagnóstico de MySQL
+
+### Estado del servicio
+
+```bash id="znt4o9"
 sudo systemctl status mysql
 ```
 
-En caso de problemas:
+### Puerto
 
-```bash
-sudo systemctl restart mysql
+```bash id="c2xy08"
+sudo ss -lntp | grep 3306
 ```
 
-También se pueden revisar los logs:
+### Bind address
 
-```bash
-sudo journalctl -u mysql
+```bash id="7w00y6"
+grep bind-address /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 
----
+### Bases de datos
 
-## Copias de seguridad
-
-Está previsto añadir un sistema de copias de seguridad de la base de datos.
-
-Un método posible será utilizar:
-
-```bash
-mysqldump
-```
-
-Por ejemplo:
-
-```bash
-mysqldump equipaments > equipaments_backup.sql
-```
-
-> Este procedimiento se completará y probará durante una fase posterior del proyecto.
-
----
-
-## Problemas habituales
-
-### MySQL no está iniciado
-
-Comprobar:
-
-```bash
-sudo systemctl status mysql
-```
-
-Si está detenido:
-
-```bash
-sudo systemctl restart mysql
-```
-
-### No aparece la base de datos
-
-Entrar en MySQL:
-
-```bash
-sudo mysql
-```
-
-Y comprobar:
-
-```sql
+```sql id="019w70"
 SHOW DATABASES;
 ```
 
-### La tabla no contiene datos
+### Usuarios
 
-Comprobar:
-
-```sql
-SELECT COUNT(*) FROM equipaments;
+```sql id="g6j5fq"
+SELECT user, host FROM mysql.user;
 ```
 
-Si devuelve `0`, revisar el proceso de importación.
+---
 
-### W-NCC no puede acceder a MySQL
+## 28. Diagnóstico del firewall
 
-Cuando se implemente la red backend, revisar:
+Estado:
 
-- dirección IP de B-NCC;
-- interfaz backend de W-NCC;
-- firewall;
-- puerto `3306`;
-- usuario MySQL;
-- estado del servicio MySQL.
+```bash id="kxf8n3"
+sudo ufw status
+```
+
+La configuración debe mostrar reglas similares a:
+
+```text id="ct7g42"
+3306/tcp ALLOW IN 192.168.30.1
+22/tcp   ALLOW IN 192.168.30.1
+```
 
 ---
 
-## Evidencias
+## 29. Criterios de validación
 
-> 📷 Pendiente: captura de `ip a`.
+B-NCC se considera correctamente configurado cuando:
 
-> 📷 Pendiente: captura de `systemctl status mysql`.
-
-> 📷 Pendiente: captura de `SHOW DATABASES`.
-
-> 📷 Pendiente: captura de `SELECT COUNT(*) FROM equipaments`.
-
-> 📷 Pendiente: consulta mostrando registros de la base de datos.
-
-Las evidencias se añadirán una vez completado el MVP 2.
+- [x] utiliza la red backend
+- [x] tiene la dirección 192.168.30.10
+- [x] no dispone de acceso directo desde la DMZ
+- [x] no dispone de acceso directo desde la Intranet
+- [x] MySQL está activo
+- [x] MySQL escucha en 192.168.30.10
+- [x] la base de datos `equipaments` existe
+- [x] existen 889 registros
+- [x] W-NCC puede conectarse
+- [x] los usuarios MySQL están limitados por origen
+- [x] UFW está activo
+- [x] MySQL solo permite acceso desde W-NCC
+- [x] SSH solo permite acceso desde W-NCC
+- [x] las contraseñas web se almacenan mediante hash
 
 ---
 
-[← Volver a Documentación de Administrador](README.md)
+## 30. Evidencias pendientes
+
+Las capturas reales se añadirán posteriormente.
+
+Las evidencias recomendadas son:
+
+📸 `ip a` mostrando `192.168.30.10`
+
+📸 `ip route`
+
+📸 `systemctl status mysql`
+
+📸 `ss -lntp | grep 3306`
+
+📸 `ufw status`
+
+📸 `SELECT COUNT(*) FROM equipaments`
+
+📸 conexión correcta desde W-NCC
+
+📸 error `Host is not allowed` desde un origen no autorizado
+
+Estas capturas se añadirán en la fase final de evidencias.
+
+---
+
+## 31. Conclusión
+
+B-NCC representa la capa de datos de la arquitectura multicapa.
+
+Su aislamiento mediante una red backend privada reduce la exposición de MySQL.
+
+La combinación de:
+
+- red privada
+- bind-address
+- usuarios restringidos por origen
+- permisos diferenciados
+- UFW
+- SSH restringido
+
+permite aplicar varias capas de seguridad.
+
+La comunicación con la base de datos queda limitada a W-NCC, que actúa como único punto de acceso autorizado desde la aplicación web.
