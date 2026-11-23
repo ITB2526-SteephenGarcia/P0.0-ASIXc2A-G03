@@ -521,7 +521,17 @@ Aquestes decisions busquen aplicar el principi de mínim privilegi i limitar els
 
 ---
 
-## 16. Metodologia i seguiment
+## 16. Estudi previ i justificació tecnològica
+
+Abans del desplegament s'han comparat alternatives de virtualització, servidor web, base de dades, DNS, DHCP i firewall.
+
+La comparació completa, incloent **per què s'ha utilitzat IsardVDI davant Proxmox, VirtualBox o VMware**, es troba a:
+
+[Estudi previ i justificació de tecnologies](./Doc_Proceso_Proyecto/Estudio_Previo_Tecnologias.md)
+
+---
+
+## 17. Metodologia i seguiment
 
 El projecte s'ha treballat per sprints utilitzant una metodologia basada en **SCRUM**.
 
@@ -551,7 +561,7 @@ Aquesta traçabilitat permet demostrar que el projecte s'ha desenvolupat de mane
 
 ---
 
-## 17. Planificació, recursos i riscos
+## 18. Planificació, recursos i riscos
 
 La documentació del projecte inclou o ha d'incloure:
 
@@ -591,7 +601,7 @@ Les mesures de mitigació s'han anat aplicant durant el desplegament.
 
 ---
 
-## 18. Estructura del repositori
+## 19. Estructura del repositori
 
 ```text
 P0.0-ASIXc2A-G03/
@@ -650,7 +660,7 @@ Scripts i automatitzacions utilitzats durant el desplegament.
 
 ---
 
-## 19. Proves i evidències
+## 20. Proves i evidències
 
 Durant el projecte s'han realitzat proves de:
 
@@ -681,7 +691,7 @@ s'han de documentar amb evidències reals i no es consideraran completades fins 
 
 ---
 
-## 20. Documentació orientada a la rúbrica
+## 21. Documentació orientada a la rúbrica
 
 La documentació del repositori s'està estructurant per poder demostrar els criteris principals d'avaluació:
 
@@ -702,7 +712,7 @@ La documentació del repositori s'està estructurant per poder demostrar els cri
 
 ---
 
-## 21. Estat actual del projecte
+## 22. Estat actual del projecte
 
 ### Funcionalitat principal completada
 
@@ -743,6 +753,6 @@ El treball restant se centra principalment en:
 
 ---
 
-## 22. Autoria
+## 23. Autoria
 
 Projecte desenvolupat per l'equip **ASIXc2A-G03** dins del projecte intermodular d'ASIX.
