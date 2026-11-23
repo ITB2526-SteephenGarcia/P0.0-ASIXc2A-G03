@@ -612,7 +612,6 @@ P0.0-ASIXc2A-G03/
 |
 |-- Config/
 |-- Doc_Administrador/
-|-- Doc_Proceso/
 |-- Doc_Proceso_Proyecto/
 |-- Doc_Usuario/
 |-- Scripts/
@@ -621,7 +620,9 @@ P0.0-ASIXc2A-G03/
 
 ### `Config`
 
-Conté configuracions rellevants dels serveis desplegats.
+Conté configuracions clau i segures del desplegament, com el Netplan final de B-NCC i el fragment NAT persistent de R-NCC.
+
+[Veure configuracions](./Config/)
 
 ### `Doc_Administrador`
 
@@ -647,7 +648,7 @@ Documentació adaptada a l'usuari final:
 - manteniment bàsic;
 - resolució de problemes.
 
-### `Doc_Proceso` / `Doc_Proceso_Proyecto`
+### `Doc_Proceso_Proyecto`
 
 Documentació del procés:
 
@@ -660,7 +661,11 @@ Documentació del procés:
 
 ### `Scripts`
 
-Scripts i automatitzacions utilitzats durant el desplegament.
+Conté scripts auxiliars preparats per facilitar les comprovacions finals i el manteniment.
+
+Els scripts nous no es presenten com a evidència d'haver estat utilitzats durant tot el desplegament original.
+
+[Veure scripts](./Scripts/)
 
 ---
 
