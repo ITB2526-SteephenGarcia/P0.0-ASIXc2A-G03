@@ -1,48 +1,80 @@
 # Mantenimiento básico
 
-Los servidores los mantiene el administrador. Estas son las cosas sencillas que puede hacer el usuario desde su equipo.
+La administración de los servidores corresponde al administrador. El usuario solo debe realizar tareas sencillas en su propio equipo.
 
-## 1. Mantén el navegador actualizado
+## 1. Mantener el navegador actualizado
 
-Un navegador antiguo puede mostrar mal la página o dar errores. Actualízalo cuando haya versiones nuevas.
+Se recomienda utilizar una versión actual del navegador para evitar incompatibilidades y problemas de seguridad.
 
-## 2. Comprueba tu conexión de red
+## 2. Comprobar la conexión
 
-Antes de pensar que falla la web, asegúrate de que tu equipo está conectado a la red del proyecto (por ejemplo, comprobando que otras páginas o recursos de la misma red cargan).
+Si un servicio no carga, comprueba primero que el equipo continúa conectado a la red del proyecto.
 
-## 3. Recarga la página cuando sea necesario
+No cambies manualmente la configuración de red si no eres el administrador.
 
-- Si la página tarda o se queda a medias: recarga con **F5** o **Ctrl + R**.
-- Si ves datos antiguos: recarga sin caché con **Ctrl + F5** (o **Ctrl + Shift + R**).
+## 3. Recargar la página
 
-## 4. Limpia la caché del navegador de vez en cuando
+Recarga normal:
 
-Si el navegador sigue mostrando una versión antigua tras recargar, borra los datos de navegación (caché) desde el menú de historial del navegador.
+```text
+F5
+Ctrl + R
+```
 
-## 5. Cierra la sesión si existe autenticación
+Recarga sin caché:
 
-> 🛠️ **Previsto:** si se añade inicio de sesión, se recomendará cerrar sesión al terminar, sobre todo en equipos compartidos.
+```text
+Ctrl + F5
+```
 
-## 6. No cambies configuraciones internas
+## 4. Caché del navegador
 
-No intentes tocar nada de los servidores ni de la red. Cualquier cambio debe hacerlo el administrador.
+Si se sigue mostrando una versión antigua, se puede limpiar la caché desde las opciones del navegador.
 
-## 7. Comunica los errores al administrador
+## 5. Cerrar sesión
 
-Cuando avises, incluye:
+La aplicación utiliza autenticación.
 
-- Qué estabas haciendo.
-- Qué mensaje de error apareció (mejor con captura).
-- A qué hora ocurrió.
-- Desde qué equipo (Linux o Windows).
+Al terminar, utiliza la opción de logout, especialmente en equipos compartidos.
 
-> 📷 Añadir aquí un ejemplo de captura de un error para enviar al administrador.
+## 6. Cuentas administrativas
 
-## Resumen
+Las cuentas administrativas deben utilizarse solo cuando sea necesario realizar operaciones de gestión.
 
-| Tarea | Frecuencia |
-|-------|------------|
-| Actualizar el navegador | Cuando haya actualizaciones |
-| Limpiar la caché | Si se ven datos antiguos |
-| Comprobar la conexión | Si algo no carga |
-| Avisar de errores | Siempre que ocurran |
+Al terminar:
+
+1. guarda los cambios necesarios
+2. cierra sesión
+3. cierra el navegador si el equipo es compartido
+
+## 7. No modificar servidores
+
+El usuario no debe modificar:
+
+- R-NCC
+- W-NCC
+- B-NCC
+- F-NCC
+- firewall
+- base de datos
+- servicios de red
+
+## 8. Comunicar errores
+
+Al informar de una incidencia indica:
+
+- equipo utilizado
+- acción realizada
+- mensaje de error
+- hora aproximada
+- captura si es posible
+
+## 9. Frecuencia recomendada
+
+| Tarea | Cuándo |
+|---|---|
+| Actualizar navegador | Cuando existan actualizaciones |
+| Comprobar conexión | Cuando un servicio no responda |
+| Recargar sin caché | Cuando aparezcan datos antiguos |
+| Cerrar sesión | Siempre al terminar |
+| Avisar de errores | Cuando el problema persista |
