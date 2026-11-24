@@ -17,8 +17,9 @@ La separación entre redes permite aplicar controles de acceso diferentes según
 ---
 
 ## 2. Esquema general
+<img width="1448" height="1086" alt="image" src="https://github.com/user-attachments/assets/cc83fe54-bcd4-40f2-b40a-e9ab5f3e3cfc" />
 
-<img width="1448" height="1086" alt="imatge" src="https://github.com/user-attachments/assets/d8b333e6-60ec-48cc-be4b-fa7ac9c803e6" />
+
 
 ---
 
