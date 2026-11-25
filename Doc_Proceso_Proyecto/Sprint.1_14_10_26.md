@@ -1,6 +1,8 @@
-# **Sprint 1 - 14/10/2026**
+ww# **Sprint 1 - 14/10/2026**
 
-**Integrantes:** Taylor Uriña y Steephen Garcia**Sprint:** Sprint 1**Fecha:** 14/10/2026
+**Integrantes:** Taylor Uriña y Steephen Garcia
+**Sprint:** Sprint 1
+**Fecha:** 14/10/2026
 
 ## **Objetivo de la sesión**
 
